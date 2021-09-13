@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewBag.Title - My Telerik MVC Application</title>
+    <title>Client Manager</title>
 	<link href="https://kendo.cdn.telerik.com/2021.2.616/styles/kendo.bootstrap-v4.min.css" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
@@ -20,20 +20,6 @@
             <h1 class="navbar-brand d-flex align-items-center">Client Manager</h1>
         </div>
     </nav>
-    
-    <div id="responsive-panel" class="navbar navbar-dark bg-light">
-        @(Html.Kendo().Menu()
-            .Name("Menu")
-            .HtmlAttributes(new { style="width:100%" })
-            .Items(items =>
-            {
-                items.Add().Text("Item 1");
-                items.Add().Text("Item 2");
-                items.Add().Text("Item 3");
-                items.Add().Text("Disabled item").Enabled(false);
-            })
-        )
-    </div>
 
     <main>
         <div class="container-fluid">
@@ -43,7 +29,7 @@
 
     <footer class="footer text-center d-flex align-items-center">
         <div class="container-fluid">
-            <p class="text-muted">Copyright © @DateTime.Now.Year Progress Software Corporation and/or its subsidiaries or affiliates. All Rights Reserved.</p>
+            <p class="text-muted">Site by Lake Y</p>
         </div>
     </footer>
 
