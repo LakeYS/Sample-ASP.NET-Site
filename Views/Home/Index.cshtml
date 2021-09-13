@@ -61,15 +61,14 @@
 </div>
 <div class="row">
     <div class="col-12">
-        @(Html.Kendo().Grid<Sample_ASP.NET_Site.Models.OrderViewModel>()
+        @(Html.Kendo().Grid<Sample_ASP.NET_Site.Models.Client>()
             .Name("grid")
             .Columns(columns =>
             {
-                columns.Bound(p => p.OrderID).Filterable(false);
-                columns.Bound(p => p.Freight);
-                columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
-                columns.Bound(p => p.ShipName);
-                columns.Bound(p => p.ShipCity);
+                columns.Bound(p => p.ID).Filterable(false);
+                columns.Bound(p => p.LastName);
+                columns.Bound(p => p.FirstName);
+                columns.Bound(p => p.Timestamp).Format("{0:MM/dd/yyyy}");
             })
             .Pageable()
             .Sortable()

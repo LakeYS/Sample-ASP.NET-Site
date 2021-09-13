@@ -12,13 +12,12 @@ namespace Sample_ASP.NET_Site.Controllers
     {
 		public ActionResult Orders_Read([DataSourceRequest]DataSourceRequest request)
 		{
-			var result = Enumerable.Range(0, 50).Select(i => new OrderViewModel
+			var result = Enumerable.Range(0, 50).Select(i => new Client
 			{
-				OrderID = i,
-				Freight = i * 10,
-				OrderDate = DateTime.Now.AddDays(i),
-				ShipName = "ShipName " + i,
-				ShipCity = "ShipCity " + i
+				ID = i,
+				LastName = "Doe",
+				FirstName = "John",
+				Timestamp = new DateTime(1631570697845)
 			});
 
 			return Json(result.ToDataSourceResult(request));
