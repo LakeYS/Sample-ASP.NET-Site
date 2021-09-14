@@ -1,24 +1,22 @@
-﻿<div class="row">
-    <div class="col-12">
-        @(Html.Kendo().Grid<Sample_ASP.NET_Site.Models.Client>()
-            .Name("grid")
-            .Columns(columns =>
-            {
-                columns.Bound(p => p.ID).Filterable(false);
-                columns.Bound(p => p.LastName);
-                columns.Bound(p => p.FirstName);
-                columns.Bound(p => p.Timestamp).Format("{0:MM/dd/yyyy}");
-            })
-            .Pageable()
-            .Sortable()
-            .Scrollable()
-            .Filterable()
-            .HtmlAttributes(new { style = "height:550px;" })
-            .DataSource(dataSource => dataSource
-                .Ajax()
-                .PageSize(20)
-                .Read(read => read.Action("Orders_Read", "Home"))
-            )
-        )
-    </div>
-</div>
+﻿@(Html.Kendo().Grid<Sample_ASP.NET_Site.Models.Client>()
+    .Name("Customers")
+    .ToolBar(tb => tb.Create())
+    .Pageable()
+    .DataSource(dataSource => dataSource.Ajax()
+        .Model(model => model.Id(c => c.ID))
+        .Read("GetClients", "Home")
+        .Update("UpdateClient", "Home")
+        .Create("InsertClient", "Home")
+        .Destroy("DeleteClient", "Home"))
+    .Columns(cols =>
+    {
+        cols.Bound(c => c.FirstName);
+        cols.Bound(c => c.LastName);
+        cols.Bound(c => c.Timestamp);
+        cols.Command(cmd =>
+        {
+            cmd.Edit();
+            cmd.Destroy();
+        });
+    })
+)

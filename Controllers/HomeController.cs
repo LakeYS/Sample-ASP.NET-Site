@@ -16,17 +16,65 @@ namespace Sample_ASP.NET_Site.Controllers
 
             return View();
         }
-		public ActionResult Orders_Read([DataSourceRequest] DataSourceRequest request)
+		public ActionResult GetClients([DataSourceRequest] DataSourceRequest request)
 		{
-			var result = Enumerable.Range(0, 50).Select(i => new Client
-			{
-				ID = i,
-				LastName = "Doe",
-				FirstName = "John",
-				Timestamp = new DateTime(1631570697845)
-			});
+            using (var dbContext = new ManagerContext())
+            {
+                var returnVal = Json(dbContext.Clients.ToDataSourceResult(request,
+                c => new Client
+                {
+                    ID = c.ID,
+                    FirstName = c.FirstName,
+                    LastName = c.LastName,
+                    Timestamp = c.Timestamp
+                }));
 
-			return Json(result.ToDataSourceResult(request));
-		}
-	}
+                return returnVal;
+            }
+        }
+
+        public ActionResult UpdateClient([DataSourceRequest] DataSourceRequest request, Client client)
+        {
+            using (var dbContext = new ManagerContext())
+            {
+                var customerToUpdate = dbContext.Clients.First(cust => cust.ID == client.ID);
+
+                TryUpdateModel(customerToUpdate);
+
+                dbContext.SaveChanges();
+
+                return Json(ModelState.ToDataSourceResult());
+            }
+        }
+
+        public ActionResult InsertClient([DataSourceRequest] DataSourceRequest request, Client target)
+        {
+            using (var dbContext = new ManagerContext())
+            {
+                if (ModelState.IsValid)
+                {
+                    dbContext.Clients.Add(target);
+                    dbContext.SaveChanges();
+                }
+
+                return Json(new[] { target }.ToDataSourceResult(request));
+            }
+        }
+
+        public ActionResult DeleteClient([DataSourceRequest] DataSourceRequest request, Client client)
+        {
+            using (var dbContext = new ManagerContext())
+            {
+                var target = dbContext.Clients.First(cust => cust.ID == client.ID);
+
+                if (target != null)
+                {
+                    dbContext.Clients.Remove(target);
+                    dbContext.SaveChanges();
+                }
+
+                return Json(new[] { target }.ToDataSourceResult(request));
+            }
+        }
+    }
 }
